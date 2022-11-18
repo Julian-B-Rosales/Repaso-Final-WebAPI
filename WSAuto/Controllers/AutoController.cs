@@ -27,12 +27,29 @@ namespace WSAuto.Controllers
             return context.Autos.ToList();
         }
 
-        //GET /api/auto/Modelo
-        [HttpGet("{modelo}")]
+        //GET /api/auto/modelo/{modelo}
+        [HttpGet("modelo/{modelo}")]
         public ActionResult<IEnumerable<Auto>> GetByModelo(string modelo)
         {
             List<Auto> autos = (from a in context.Autos
                                 where a.Modelo == modelo
+                                select a).ToList();
+
+            if (autos == null)
+            {
+                return NotFound();
+            }
+
+            return autos;
+
+        }
+
+        //GET /api/auto/marca/{marca}
+        [HttpGet("marca/{marca}")]
+        public ActionResult<IEnumerable<Auto>> GetByMarca(string marca)
+        {
+            List<Auto> autos = (from a in context.Autos
+                                where a.Marca == marca
                                 select a).ToList();
 
             if (autos == null)
@@ -59,8 +76,8 @@ namespace WSAuto.Controllers
 
         }
 
-        //GET /api/auto/Marca/Modelo
-        [HttpGet("{marca}/{modelo}")]
+        //GET /api/auto/marca/{marca}/{modelo}
+        [HttpGet("marca/{marca}/{modelo}")]
         public ActionResult<Auto> GetByMarcaYModelo(string marca, string modelo)
         {
             Auto auto = (from a in context.Autos
@@ -76,8 +93,8 @@ namespace WSAuto.Controllers
 
         }
 
-        //GET /api/auto/color
-        [HttpGet("{color}")]
+        //GET /api/auto/color/{color}
+        [HttpGet("color/{color}")]
         public ActionResult<IEnumerable<Auto>> GetByColor(string color)
         {
             List<Auto> autos = (from a in context.Autos

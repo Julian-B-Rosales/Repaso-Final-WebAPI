@@ -6,7 +6,7 @@ namespace WSAuto.Models
     [Table("Vehiculo")]
     public class Auto
     {
-        \
+        
         public string Id { get; set; }
 
         [Required]
